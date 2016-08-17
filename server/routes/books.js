@@ -31,9 +31,9 @@ router.post('/', function (req, res) {
       res.sendStatus(500);
     }
 
-    client.query('INSERT INTO books (author, title, published) '
-                + 'VALUES ($1, $2, $3)',
-                [book.author, book.title, book.published],
+    client.query('INSERT INTO books (author, title, published, genre) '
+                + 'VALUES ($1, $2, $3, $4)',
+                [book.author, book.title, book.published, book.genre],
                 function (err, result) {
                   done();
 
@@ -46,4 +46,32 @@ router.post('/', function (req, res) {
   });
 });
 
+router.put('/:id', function (req, res) {
+  var id = req.params.id;
+  var book = req.body;
+
+  pg.connect(connectionString, function (err, client, done) {
+    if (err) {
+      res.sendStatus(500);
+    }
+
+    client.query('UPDATE books ' +
+                  'SET title = $1, ' +
+                  'author = $2, ' +
+                  'published = $3, ' +
+                  'genre = $4 ' +
+                  'WHERE id = $5',
+                [book.title, book.author, book.published, book.genre, id],
+              function (err, result) {
+                done();
+
+                if (err) {
+                  console.log('err', err);
+                  res.sendStatus(500);
+                } else {
+                  res.sendStatus(200);
+                }
+              });
+  });
+});
 module.exports = router;
