@@ -1,5 +1,5 @@
 {
-  "name": "node-full-circle",
+  "name": "prime-node-books",
   "version": "1.0.0",
   "description": "Teaching how to incorporate postgres into a Node application",
   "main": "app.js",
