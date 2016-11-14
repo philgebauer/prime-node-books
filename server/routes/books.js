@@ -7,6 +7,7 @@ router.get('/', function (req, res) {
   // Retrieve books from database
   pg.connect(connectionString, function (err, client, done) {
     if (err) {
+      console.log(err);
       res.sendStatus(500);
     }
 
@@ -14,6 +15,7 @@ router.get('/', function (req, res) {
       done(); // closes connection, I only have 10!
 
       if (err) {
+        console.log('query error: ', err);
         res.sendStatus(500);
       }
 
@@ -28,6 +30,7 @@ router.post('/', function (req, res) {
 
   pg.connect(connectionString, function (err, client, done) {
     if (err) {
+      console.log(err);
       res.sendStatus(500);
     }
 
@@ -38,6 +41,7 @@ router.post('/', function (req, res) {
                   done();
 
                   if (err) {
+                    console.log(err);
                     res.sendStatus(500);
                   } else {
                     res.sendStatus(201);
@@ -98,4 +102,5 @@ router.delete('/:id', function (req, res) {
                   });
   });
 });
+
 module.exports = router;

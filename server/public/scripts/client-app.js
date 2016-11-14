@@ -5,7 +5,7 @@ $(document).ready(function () {
     $('#book-submit').on('click', postBook);
     $('#book-list').on('click', '.update', putBook);
     $('#book-list').on('click', '.delete', deleteBook);
-  });
+});
 /**
  * Retrieve books from server and append to DOM
  */
@@ -35,7 +35,7 @@ function getBooks() {
                       book[property] = month + '/' + day + '/' + year;
                     }
 
-                    console.log('properties', book[property]);
+                    // console.log('properties', book[property]);
 
                     var $input = $('<input type="' + inputType + '" id="' + property + '"name="' + property + '" />');
                     $input.val(book[property]);
