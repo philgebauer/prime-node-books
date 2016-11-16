@@ -30,6 +30,7 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res) {
   var newBook = req.body;
+    console.log(newBook);
   pg.connect(connectionString, function(err, client, done) {
     if(err) {
       console.log('connection error: ', err);
@@ -37,9 +38,11 @@ router.post('/', function(req, res) {
     }
 
     client.query(
-      'INSERT INTO books (title, author, published, genre) ' +
-      'VALUES ($1, $2, $3, $4)',
-      [newBook.title, newBook.author, newBook.published, newBook.genre],
+      'INSERT INTO books (title, author, genre, published, publisher, edition) ' +
+      'VALUES ($1, $2, $3, $4, $5, $6)',
+
+      [newBook.title, newBook.author, newBook.genre, newBook.published, newBook.publisher, newBook.edition],
+
       function(err, result) {
         done();
 
